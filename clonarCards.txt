@@ -1,0 +1,2 @@
+- Usar o forEach() ou map() e pra cada personagem, fazer um clone do card.
+- lembre-se: o nodeClone() só tem efeito com o parent.appendChild();
