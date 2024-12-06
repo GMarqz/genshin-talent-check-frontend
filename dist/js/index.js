@@ -1,10 +1,9 @@
-import createModal from "./components/modal/createModal.js";
+import createModal from "./components/modal/index.js";
 import { characters } from "./mockDB.js";
 const $main = document.getElementById('main');
-createModal($main, characters[0]);
 function cardInit(parentElement, character) {
-    const newDivElement = document.createElement("DIV");
-    newDivElement.innerHTML = `
+    const $newDivElement = document.createElement("DIV");
+    $newDivElement.innerHTML = `
             <div class="card" id="card-${character.name.toLowerCase()}">
             <img src=${character.img.imgUrl} class="card-img-top" alt=${character.img.imgAlt} id="card-img">
             <div class="card-body">
@@ -16,10 +15,26 @@ function cardInit(parentElement, character) {
             </div>
           </div>
         `;
-    parentElement.appendChild(newDivElement);
+    parentElement.appendChild($newDivElement);
+    createModal($newDivElement, character);
+    return $newDivElement;
 }
 characters.forEach((character) => {
     cardInit($main, character);
 });
+const $modal = document.getElementById("card-modal");
+const $cardDetailsBtn = document.getElementById("card-details-btn");
+$cardDetailsBtn.onclick = () => {
+    $modal.style.display = "block";
+};
+const $modalHeaderBtn = document.getElementById("modal-btn-close");
+$modalHeaderBtn.onclick = () => {
+    $modal.style.display = "none";
+};
+window.onclick = (event) => {
+    if (event.target === $modal) {
+        $modal.style.display = "none";
+    }
+};
 //Link para fazer modal:
 // https://www.w3schools.com/howto/howto_css_modals.asp
