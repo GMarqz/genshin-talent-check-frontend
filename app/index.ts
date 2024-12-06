@@ -1,6 +1,9 @@
+import createModal from "./components/modal/createModal.js";
 import { character, characters } from "./mockDB.js";
 
 const $main: HTMLElement = document.getElementById('main');
+
+createModal($main, characters[0]);
 
 function cardInit(parentElement: HTMLElement, character: character) {
     const newDivElement = document.createElement("DIV") as HTMLDivElement;
@@ -10,7 +13,9 @@ function cardInit(parentElement: HTMLElement, character: character) {
             <div class="card-body">
               <h5 class="card-title">${character.name}</h5>
               <p class="card-text">${character.description}</p>
-              <a href="#" class="btn">Details</a>
+            </div>
+            <div class="card-footer">
+              <button class="card-details-btn" id="card-details-btn">Details</button>
             </div>
           </div>
         `;
@@ -18,8 +23,9 @@ function cardInit(parentElement: HTMLElement, character: character) {
         parentElement.appendChild(newDivElement);
 }
 
-// cardInit($main, characters[0]);
-
 characters.forEach((character) => {
     cardInit($main, character);
 });
+
+//Link para fazer modal:
+// https://www.w3schools.com/howto/howto_css_modals.asp
