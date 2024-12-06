@@ -1,3 +1,5 @@
+@import url(./app/components/modal/modal.css);
+
 .main {
     display: flex;
     align-items: center;
