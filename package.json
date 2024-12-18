@@ -4,12 +4,16 @@
   "description": "Genshin Impact Talent Check's web version, starting on frontend.",
   "main": "index.js",
   "scripts": {
+    "dev": "json-server --watch ../characters.json",
     "compile": "tsc --watch",
+    "start": "concurrently \"npm run compile\" \"npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gabriel",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^9.1.0",
+    "json-server": "^0.17.4",
     "typescript": "^5.7.2"
   }
 }
