@@ -1,40 +1,27 @@
-import createModal from "./components/modal/index.js";
-import { characters } from "./mockDB.js";
-const $main = document.getElementById('main');
-function cardInit(parentElement, character) {
-    const $newDivElement = document.createElement("DIV");
-    $newDivElement.innerHTML = `
-            <div class="card" id="card-${character.name.toLowerCase()}">
-            <img src=${character.img.imgUrl} class="card-img-top" alt=${character.img.imgAlt} id="card-img">
-            <div class="card-body">
-              <h5 class="card-title">${character.name}</h5>
-              <p class="card-text">${character.description}</p>
-            </div>
-            <div class="card-footer">
-              <button class="card-details-btn" id="card-details-btn">Details</button>
-            </div>
-          </div>
-        `;
-    parentElement.appendChild($newDivElement);
-    createModal($newDivElement, character);
-    return $newDivElement;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import api from "./api/index.js";
+import cardInit from "./components/card/index.js";
+console.log(api.findCharacters());
+function renderCard() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const $main = document.getElementById('main');
+        try {
+            const charactersList = yield api.findCharacters();
+            for (let character of charactersList) {
+                cardInit($main, character);
+            }
+        }
+        catch (err) {
+            throw err;
+        }
+    });
 }
-characters.forEach((character) => {
-    cardInit($main, character);
-});
-const $modal = document.getElementById("card-modal");
-const $cardDetailsBtn = document.getElementById("card-details-btn");
-$cardDetailsBtn.onclick = () => {
-    $modal.style.display = "block";
-};
-const $modalHeaderBtn = document.getElementById("modal-btn-close");
-$modalHeaderBtn.onclick = () => {
-    $modal.style.display = "none";
-};
-window.onclick = (event) => {
-    if (event.target === $modal) {
-        $modal.style.display = "none";
-    }
-};
-//Link para fazer modal:
-// https://www.w3schools.com/howto/howto_css_modals.asp
+renderCard();
