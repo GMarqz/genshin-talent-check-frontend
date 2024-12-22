@@ -1,42 +1,66 @@
 import { character } from "../../api/index.js";
+import { buttons } from "../button/index.js";
 import createInputSelect from "./modalInputSelect.js";
 
-export default function createModal(parentElement: HTMLElement, character: character): HTMLDivElement{
-    const $cardModal = document.createElement("DIV") as HTMLDivElement;
-    $cardModal.className = "card-modal";
-    $cardModal.id = "card-modal";
-    parentElement.appendChild($cardModal);
+export default function createModal(character: character): HTMLDivElement{
+    const $mainElement = document.getElementById("main") as HTMLElement;
 
-    
+    const $modal = document.createElement("div") as HTMLDivElement;
+    $modal.className = "modal fade";
+    $modal.id = "exampleModal";
+    $modal.setAttribute("aria-labelledby", "exampleModalLabel");
+    $modal.ariaHidden = "true";
+    $modal.tabIndex = -1;
 
-    // $cardModal.innerHTML = `
-    //     <div class="modal-content">
-    //         <div class="modal-header">
-    //             <h5>${character.name}</h5>
-    //             <button type="button" class="modal-header-btn" id="modal-btn-close" aria-label="Close"></button>
-    //         </div>
+    const $modalDialog = document.createElement("div") as HTMLDivElement;
+    $modalDialog.className = "modal-dialog";
 
-    //         <div class="modal-body" id="modal-body">
-    //             <p class="modal-character-description">${character.description}</p>
-    //             ${setTimeout(() => {
-    //                 createInputSelect("Normal Attack", character.talents.normalAtk)
-    //             }, 200)}
-    //             ${setTimeout(() => {
-    //                 createInputSelect("Elemental Skill", character.talents.elementalSkill)
-    //             }, 200)}
-    //             ${setTimeout(() => {
-    //                 createInputSelect("Elemental Burst", character.talents.elementalBurst)
-    //             }, 200)}
-    //         </div>
+    const $modalContent = document.createElement("div") as HTMLDivElement;
+    $modalContent.className = "modal-content";
 
-    //         <div class="modal-footer">
-    //             <button type="button" class="modal-btn" id="modal-btn-close">Close</button>
-    //             <button type="button" class="modal-btn" id="modal-btn-save">Save changes</button>
-    //         </div>
-    //     </div>
-    // `;
+    const $modalHeader = document.createElement("div") as HTMLDivElement;
+    $modalHeader.className = "modal-header";
 
-    return $cardModal;
+    const $modalTitle = document.createElement("h5") as HTMLHeadingElement;
+    $modalTitle.className = "modal-title";
+    $modalTitle.textContent = character.name;
+
+    const $modalHeaderCloseBtn = buttons.closeBtn("btn-close", "") as HTMLButtonElement;
+    $modalHeaderCloseBtn.ariaLabel = "Close";
+
+    const $modalBody = document.createElement("div") as HTMLDivElement;
+    $modalBody.className = "modal-body";
+
+    const $modalBodyText = document.createElement("p") as HTMLParagraphElement;
+    $modalBodyText.className = "modal-body-text";
+    $modalBodyText.textContent = character.description;
+
+    createInputSelect($modalBody, "Normal Attack", character.talents.normalAtk);
+    createInputSelect($modalBody, "Elemental Skill", character.talents.elementalSkill);
+    createInputSelect($modalBody, "Elemental Burst", character.talents.elementalBurst);
+
+    const $modalFooter = document.createElement("div") as HTMLDivElement;
+    $modalFooter.className = "modal-footer";
+
+    const $modalFooterCloseBtn = buttons.closeBtn("btn btn-secondary", "Close") as HTMLButtonElement;
+    const $modalFooterSaveBtn = buttons.normalBtn("btn btn-primary", "Save changes") as HTMLButtonElement;
+
+    $mainElement.appendChild($modal);
+    $modal.appendChild($modalDialog);
+    $modalDialog.appendChild($modalContent);
+
+    $modalContent.appendChild($modalHeader);
+    $modalHeader.appendChild($modalTitle);
+    $modalHeader.appendChild($modalHeaderCloseBtn);
+
+    $modalContent.appendChild($modalBody);
+    $modalBody.appendChild($modalBodyText);
+
+    $modalContent.appendChild($modalFooter);
+    $modalFooter.appendChild($modalFooterCloseBtn);
+    $modalFooter.appendChild($modalFooterSaveBtn);
+
+    return $modal;
 // Link referencia para modal: https://www.w3schools.com/howto/howto_css_modals.asp
 // Link de referencia para o modal: https://getbootstrap.com/docs/5.3/components/modal/
 // Link de referencia para o input select do modal: https://getbootstrap.com/docs/5.3/forms/input-group/
