@@ -1,23 +1,6 @@
-// export interface character {
-//   id: number,
-//   name: string,
-//   talents: {
-//       normalAtk: number,
-//       elementalSkill: number,
-//       elementalBurst: number,
-//       type: string,
-//       weeklyBossMaterial: string
-//   },
-//   region: string,
-//   img: {
-//       imgUrl: string,
-//       imgAlt: string
-//   },
-//   description: string
-// }
-
 export interface character {
-  id: number,
+  id: string,
+  status: string,
   name: string,
   talents: {
       normalAtk: number,
@@ -27,7 +10,10 @@ export interface character {
       weeklyBossMaterial: string
   },
   region: string,
-  pic: string,
+  characterImg: {
+    imgPath: string,
+    imgAlt: string
+  },
   description: string
 }
 
