@@ -1,5 +1,6 @@
-// import createModal from "../modal/index.js";
+import createModal from "../modal/index.js";
 import { character } from "../../api/index.js";
+import { buttons } from "../button/index.js";
 
 interface Card {
     parentElement: HTMLElement,
@@ -17,11 +18,11 @@ export default function cardInit(parentElement: HTMLElement, character: characte
     $card.setAttribute("style", "width: 18rem;");
 
     const $cardImgTop = document.createElement("img") as HTMLImageElement;
-    $cardImgTop.src = `${character.pic}`;
+    $cardImgTop.src = `${character.characterImg.imgPath}`;
     $cardImgTop.className = "card-img-top";
-    $cardImgTop.alt = "";
-    // $cardImgTop.alt = `${character.img.imgAlt}`;
-  
+    $cardImgTop.alt = `${character.characterImg.imgAlt}`;
+    $cardImgTop.setAttribute("style", "max-width: 100%;");
+    $cardImgTop.setAttribute("style", "max-height: 15rem;");    
 
     const $cardBody = document.createElement("div") as HTMLDivElement;
     $cardBody.className = "card-body";
@@ -34,9 +35,12 @@ export default function cardInit(parentElement: HTMLElement, character: characte
     $cardText.className = "card-text";
     $cardText.textContent = `${character.description}`;
 
-    const $cardBtn = document.createElement("button") as HTMLButtonElement;
-    $cardBtn.classList.add("btn", "btn-primary");
-    $cardBtn.textContent = "Details";
+    const $cardBtn = buttons.normalBtn("btn btn-primary", "Details");
+    $cardBtn.setAttribute("data-bs-toggle", "modal");
+    $cardBtn.setAttribute("data-bs-target", "#exampleModal");
+    $cardBtn.addEventListener("click", () => {
+        createModal(character);
+    });
     
     parentElement.appendChild($card);
     $card.appendChild($cardImgTop);
@@ -45,7 +49,6 @@ export default function cardInit(parentElement: HTMLElement, character: characte
     $cardBody.appendChild($cardText);
     $cardBody.appendChild($cardBtn);
 
-    // createModal($card, character);
     return {
         parentElement: parentElement,
         cardElement: $card,
