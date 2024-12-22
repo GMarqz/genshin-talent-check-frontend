@@ -1,13 +1,13 @@
-export default function createInputSelect(talentSkill, characterCurrentLevel) {
-    const $parentElement = document.getElementById("modal-body");
+export default function createInputSelect(parentElement, talentSkill, characterTalentCurrentLevel) {
+    // const $parentElement = document.getElementById("modal-body") as HTMLDivElement;
     const $inputSelect = document.createElement("div");
     $inputSelect.className = "modal-input-select";
     $inputSelect.id = "modal-input-select";
-    $parentElement.appendChild($inputSelect);
+    parentElement.appendChild($inputSelect);
     $inputSelect.innerHTML = `
         <label class="input-group-text" for="inputGroupSelect01">${talentSkill} Level</label>
         <select class="form-select" id="inputGroupSelect01">
-            <option selected>${characterCurrentLevel}</option>
+            <option selected>${characterTalentCurrentLevel}</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

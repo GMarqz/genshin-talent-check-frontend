@@ -12,11 +12,11 @@ import cardInit from "./components/card/index.js";
 console.log(api.findCharacters());
 function renderCard() {
     return __awaiter(this, void 0, void 0, function* () {
-        const $main = document.getElementById('main');
+        const $cardList = document.getElementById('card-list');
         try {
             const charactersList = yield api.findCharacters();
             for (let character of charactersList) {
-                cardInit($main, character);
+                cardInit($cardList, character);
             }
         }
         catch (err) {
