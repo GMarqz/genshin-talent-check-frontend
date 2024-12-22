@@ -14,3 +14,7 @@ When completed, users shall be able to:
 - **Set a level of priority** for each building characters
 - **Mark** a specific character to `🛑Break` if they give up on building the character
 
+## Next steps
+
+- Add a feature that returns how many materials is needed to increase a talent level to the next level or any selected level.
+- Change modal style
