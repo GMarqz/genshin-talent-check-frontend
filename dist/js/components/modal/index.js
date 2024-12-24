@@ -1,5 +1,5 @@
 import { buttons } from "../button/index.js";
-import createInputSelect from "./modalInputSelect.js";
+import { modalInputSelect } from "./modalInputSelect.js";
 export default function createModal(character) {
     const $mainElement = document.getElementById("main");
     const $modal = document.createElement("div");
@@ -24,9 +24,10 @@ export default function createModal(character) {
     const $modalBodyText = document.createElement("p");
     $modalBodyText.className = "modal-body-text";
     $modalBodyText.textContent = character.description;
-    createInputSelect($modalBody, "Normal Attack", character.talents.normalAtk);
-    createInputSelect($modalBody, "Elemental Skill", character.talents.elementalSkill);
-    createInputSelect($modalBody, "Elemental Burst", character.talents.elementalBurst);
+    modalInputSelect.characterBuildingStatusInputSelect($modalBody, character.status);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Normal Attack", character.talents.normalAtk);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Elemental Skill", character.talents.elementalSkill);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Elemental Burst", character.talents.elementalBurst);
     const $modalFooter = document.createElement("div");
     $modalFooter.className = "modal-footer";
     const $modalFooterCloseBtn = buttons.closeBtn("btn btn-secondary", "Close");
