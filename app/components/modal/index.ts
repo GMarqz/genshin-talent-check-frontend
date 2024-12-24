@@ -1,6 +1,6 @@
 import { character } from "../../api/index.js";
 import { buttons } from "../button/index.js";
-import createInputSelect from "./modalInputSelect.js";
+import { modalInputSelect } from "./modalInputSelect.js";
 
 export default function createModal(character: character): HTMLDivElement{
     const $mainElement = document.getElementById("main") as HTMLElement;
@@ -35,9 +35,10 @@ export default function createModal(character: character): HTMLDivElement{
     $modalBodyText.className = "modal-body-text";
     $modalBodyText.textContent = character.description;
 
-    createInputSelect($modalBody, "Normal Attack", character.talents.normalAtk);
-    createInputSelect($modalBody, "Elemental Skill", character.talents.elementalSkill);
-    createInputSelect($modalBody, "Elemental Burst", character.talents.elementalBurst);
+    modalInputSelect.characterBuildingStatusInputSelect($modalBody, character.status);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Normal Attack", character.talents.normalAtk);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Elemental Skill", character.talents.elementalSkill);
+    modalInputSelect.talentLevelInputSelect($modalBody, "Elemental Burst", character.talents.elementalBurst);
 
     const $modalFooter = document.createElement("div") as HTMLDivElement;
     $modalFooter.className = "modal-footer";
